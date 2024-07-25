@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   label: {
     marginLeft: 12,
     fontSize: 16,
-    color: "#333",
+    color: BASE_STYLES.DEEP_INDIGO,
   },
 });
 

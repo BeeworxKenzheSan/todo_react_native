@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     margin: 20,
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 35,
+    padding: 20,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -46,23 +46,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-  },
-  title: {
-    fontSize: 18,
-    marginBottom: 15,
-    textAlign: "center",
-  },
-  closeButton: {
-    backgroundColor: "#2196F3",
-    borderRadius: 10,
-    padding: 10,
-    elevation: 2,
-    marginTop: 15,
-  },
-  closeButtonText: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
   },
 });
 

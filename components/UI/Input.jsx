@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { TextInput, StyleSheet, Platform, SafeAreaView } from "react-native";
 import { BASE_STYLES } from "../../utils/constants";
 
-const Input = ({ style, ...props }) => {
+const Input = ({ style, value, onChangeText, error, ...props }) => {
   const [isActive, setActive] = useState(false);
 
   const activeInputBorders = {
@@ -11,6 +11,8 @@ const Input = ({ style, ...props }) => {
       : BASE_STYLES.DEEP_INDIGO,
   };
 
+  const errorStyles = error && styles.errorStyles;
+
   return (
     <SafeAreaView style={[styles.inputContainer, style]}>
       <TextInput
@@ -18,10 +20,13 @@ const Input = ({ style, ...props }) => {
           styles.input,
           Platform.OS === "ios" ? styles.iosInput : styles.androidInput,
           activeInputBorders,
+          errorStyles,
         ]}
+        value={value}
+        onChangeText={onChangeText}
+        {...props}
         onFocus={() => setActive(true)}
         onBlur={() => setActive(false)}
-        {...props}
       />
     </SafeAreaView>
   );
@@ -46,6 +51,9 @@ const styles = StyleSheet.create({
   },
   androidInput: {
     fontFamily: "sans-serif",
+  },
+  errorStyles: {
+    borderColor: "red",
   },
 });
 

@@ -2,26 +2,35 @@ import React from "react";
 import { Text, StyleSheet, Platform, Pressable } from "react-native";
 import { BASE_STYLES } from "../../utils/constants";
 
-const Button = ({ onPress, title, variant = "primary", style, ...props }) => {
+const Button = ({
+  onPress,
+  title,
+  variant = "primary",
+  style,
+  icon,
+  disabled,
+  ...props
+}) => {
   const buttonStyles = [
     styles.base,
     variant === "primary" ? styles.primary : styles.secondary,
     style,
+    disabled && styles.disabled,
   ];
   const textStyles = variant !== "primary" ? styles.secondaryText : styles.text;
 
   return (
     <Pressable
-      onPress={onPress}
+      onPress={!disabled ? onPress : null}
       style={({ pressed }) => [
         ...buttonStyles,
         {
-          opacity: pressed ? 0.5 : 1,
+          opacity: pressed || disabled ? 0.5 : 1,
         },
       ]}
       {...props}
     >
-      <Text style={textStyles}>{title}</Text>
+      {icon ? icon : <Text style={textStyles}>{title}</Text>}
     </Pressable>
   );
 };
@@ -43,8 +52,9 @@ const styles = StyleSheet.create({
     backgroundColor: BASE_STYLES.VIBRANT_PURPLE,
   },
   secondary: {
-    borderWidth: "1px",
-    borderColor: BASE_STYLES.DEEP_INDIGO,
+    backgroundColor: BASE_STYLES.PURE_WHITE,
+    borderColor: BASE_STYLES.VIBRANT_PURPLE,
+    borderWidth: 1,
   },
   text: {
     color:
@@ -56,6 +66,9 @@ const styles = StyleSheet.create({
     color: BASE_STYLES.VIBRANT_PURPLE,
     fontWeight: "bold",
     fontSize: 16,
+  },
+  disabled: {
+    backgroundColor: BASE_STYLES.LIGHT_NEUTRAL_PURPLE,
   },
 });
 
