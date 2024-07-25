@@ -58,6 +58,7 @@ function TodoList({
 
   const deleteAllTodos = () => {
     removeAllTodos();
+    confirmToDeletAllModal();
   };
 
   const renderElements = !isHasTodos ? (
