@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, StyleSheet, Platform, Pressable } from "react-native";
+import { BASE_STYLES } from "../../utils/constants";
 
 const Button = ({ onPress, title, variant = "primary", style, ...props }) => {
   const buttonStyles = [
@@ -7,7 +8,6 @@ const Button = ({ onPress, title, variant = "primary", style, ...props }) => {
     variant === "primary" ? styles.primary : styles.secondary,
     style,
   ];
-
   const textStyles = variant !== "primary" ? styles.secondaryText : styles.text;
 
   return (
@@ -40,19 +40,20 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
   },
   primary: {
-    backgroundColor: "#7a12ff",
+    backgroundColor: BASE_STYLES.VIBRANT_PURPLE,
   },
   secondary: {
     borderWidth: "1px",
-    borderColor: "#5819b3",
+    borderColor: BASE_STYLES.DEEP_INDIGO,
   },
   text: {
-    color: Platform.OS === "ios" ? "#FFFFFF" : "#000000",
+    color:
+      Platform.OS === "ios" ? BASE_STYLES.PURE_WHITE : BASE_STYLES.PURE_WHITE,
     fontWeight: "bold",
     fontSize: 16,
   },
   secondaryText: {
-    color: "#5819b3",
+    color: BASE_STYLES.VIBRANT_PURPLE,
     fontWeight: "bold",
     fontSize: 16,
   },
