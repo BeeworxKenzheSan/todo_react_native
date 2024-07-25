@@ -19,11 +19,17 @@ function TodoList({
   toggleCompleteTodo,
   deleteTodo,
   onSort,
+  removeAllTodos,
+  isHasTodos,
 }) {
   const [editTodoModal, setEditModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
+  const [confirmToDelete, setConfirmToDelete] = useState(false);
 
   const [edititingTodo, setEditignTodo] = useState(false);
+  const confirmToDeletAllModal = () => {
+    setConfirmToDelete((prevState) => !prevState);
+  };
 
   const editModalHandler = (editingTodo) => {
     if (editingTodo) {
@@ -50,11 +56,20 @@ function TodoList({
     deleteModalHandler();
   };
 
-  const renderElements = !todos.length ? (
+  const deleteAllTodos = () => {
+    removeAllTodos();
+  };
+
+  const renderElements = !isHasTodos ? (
     <Text style={styles.emptyText}>The list is empty</Text>
   ) : (
     <View style={styles.actionButtonsStyles}>
-      <Button variant="secondary" size="small" icon={<DeleteIcon />} />
+      <Button
+        variant="secondary"
+        size="small"
+        icon={<DeleteIcon />}
+        onPress={confirmToDeletAllModal}
+      />
       <Button
         variant="secondary"
         size="small"
@@ -78,6 +93,13 @@ function TodoList({
 
   return (
     <View style={styles.container}>
+      <AppModal isVisible={confirmToDelete} onClose={confirmToDeletAllModal}>
+        <ConfirmDeleteTodo
+          title=" All Todos"
+          onCancel={confirmToDeletAllModal}
+          onConfirm={deleteAllTodos}
+        />
+      </AppModal>
       <AppModal isVisible={editTodoModal} onClose={editModalHandler}>
         <TodoForm
           onClose={editModalHandler}

@@ -11,24 +11,32 @@ import TodoList from "./TodoList";
 
 function Todo() {
   const [addTodoModal, setAddTodoModal] = useState(false);
-  const { todos, addTodo, toggleCompleteTodo, updateTodo, deleteTodo } =
-    useStore();
+  const {
+    todos,
+    addTodo,
+    toggleCompleteTodo,
+    updateTodo,
+    deleteTodo,
+    removeAllTodos,
+  } = useStore();
   const [sortedTodos, setSotredTodos] = useState(todos);
 
+  const sorteTodosByType = (type) => {
+    if (type === SORT_TYPE.COMPLETED) {
+      return todos.filter((todos) => !todos.completed);
+    }
+    if (type === SORT_TYPE.NOT_COMPLETED) {
+      return todos.filter((todos) => todos.completed);
+    }
+    if (type === SORT_TYPE.SHOW_ALL) {
+      return [...todos];
+    }
+    return [];
+  };
+
   const sortTodos = (type) => {
-    const sorteTodosByType = () => {
-      if (type === SORT_TYPE.COMPLETED) {
-        return todos.filter((todos) => todos.completed);
-      }
-      if (type === SORT_TYPE.NOT_COMPLETED) {
-        return todos.filter((todos) => !todos.completed);
-      }
-      if (type === SORT_TYPE.SHOW_ALL) {
-        return [...todos];
-      }
-      return [];
-    };
-    setSotredTodos(sorteTodosByType());
+    const updatedTodos = sorteTodosByType(type);
+    setSotredTodos(updatedTodos);
   };
 
   const addModalHandler = () => {
@@ -62,6 +70,8 @@ function Todo() {
           updateTodo={updateTodo}
           deleteTodo={deleteTodo}
           onSort={sortTodos}
+          removeAllTodos={removeAllTodos}
+          isHasTodos={Boolean(todos.length)}
         />
       </View>
     </SafeAreaView>
