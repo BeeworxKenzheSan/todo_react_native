@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { TextInput, StyleSheet, Platform, SafeAreaView } from "react-native";
 import { BASE_STYLES } from "../../utils/constants";
 
-const Input = ({ style, value, onChangeText, error, ...props }) => {
+const Input = ({ style, value, onChangeText, error, multiline, ...props }) => {
   const [isActive, setActive] = useState(false);
 
   const activeInputBorders = {
@@ -24,6 +24,7 @@ const Input = ({ style, value, onChangeText, error, ...props }) => {
         ]}
         value={value}
         onChangeText={onChangeText}
+        multiline={multiline}
         {...props}
         onFocus={() => setActive(true)}
         onBlur={() => setActive(false)}

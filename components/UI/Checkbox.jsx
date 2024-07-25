@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Switch } from "react-native";
 import { BASE_STYLES } from "../../utils/constants";
 
@@ -9,6 +9,9 @@ const Checkbox = ({ label, value = false, onValueChange, style = {} }) => {
     setIsChecked(newValue);
     onValueChange(newValue);
   };
+  useEffect(() => {
+    setIsChecked(value);
+  }, [value]);
 
   return (
     <View style={[styles.container, style]}>

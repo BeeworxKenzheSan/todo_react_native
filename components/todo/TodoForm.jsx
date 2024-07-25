@@ -1,11 +1,11 @@
 import { View, Text, StyleSheet } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../UI/Button";
 import Input from "../UI/Input";
 import Checkbox from "../UI/Checkbox";
 import { BASE_STYLES } from "../../utils/constants";
 
-function TodoForm({ onClose, buttonText = "Add Task", onConfirm }) {
+function TodoForm({ onClose, buttonText = "Add Task", onConfirm, data }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [id, setId] = useState("");
@@ -39,6 +39,15 @@ function TodoForm({ onClose, buttonText = "Add Task", onConfirm }) {
     return false;
   };
 
+  useEffect(() => {
+    if (data && data?.id && data?.title) {
+      setId(data.id);
+      setDescription(data.description);
+      setIsCompleted(data.completed);
+      setTitle(data.title);
+    }
+  }, [data]);
+
   return (
     <View style={styles.formContainer}>
       <View>
@@ -56,6 +65,7 @@ function TodoForm({ onClose, buttonText = "Add Task", onConfirm }) {
             value={description}
             onChangeText={descriptionChangeHandler}
             placeholder="Enter the description"
+            multiline={true}
           />
         </View>
         <View style={styles.formInputContainer}>

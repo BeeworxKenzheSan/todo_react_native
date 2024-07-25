@@ -9,6 +9,7 @@ const Button = ({
   style,
   icon,
   disabled,
+  size = "base",
   ...props
 }) => {
   const buttonStyles = [
@@ -16,6 +17,7 @@ const Button = ({
     variant === "primary" ? styles.primary : styles.secondary,
     style,
     disabled && styles.disabled,
+    size === "base" ? styles.baseSize : styles.medium,
   ];
   const textStyles = variant !== "primary" ? styles.secondaryText : styles.text;
 
@@ -37,8 +39,6 @@ const Button = ({
 
 const styles = StyleSheet.create({
   base: {
-    paddingVertical: 12,
-    paddingHorizontal: 24,
     borderRadius: 8,
     alignItems: "center",
     justifyContent: "center",
@@ -69,6 +69,14 @@ const styles = StyleSheet.create({
   },
   disabled: {
     backgroundColor: BASE_STYLES.LIGHT_NEUTRAL_PURPLE,
+  },
+  baseSize: {
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+  },
+  medium: {
+    paddingVertical: 12,
+    paddingHorizontal: 12,
   },
 });
 

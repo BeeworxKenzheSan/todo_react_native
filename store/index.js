@@ -4,7 +4,7 @@ const useStore = create((set) => ({
   todos: [],
   addTodo: (todo) => set((state) => ({ todos: [...state.todos, todo] })),
   deleteTodo: (id) =>
-    set({ todos: state.todos.filter((item) => item.id !== id) }),
+    set((state) => ({ todos: state.todos.filter((todo) => todo.id !== id) })),
   removeAllTodos: () => set({ todos: [] }),
   updateTodo: (id, updateTodo) =>
     set((state) => ({
@@ -12,13 +12,10 @@ const useStore = create((set) => ({
         return todo.id === id ? { ...todo, ...updateTodo } : todo;
       }),
     })),
-  toggleCompliteTodo: (id) =>
+  toggleCompleteTodo: (id) =>
     set((state) => ({
-      todos: state.todos.map((item) => {
-        if (item.id === id) {
-          return { ...item, completed: !item.completed };
-        }
-        return item;
+      todos: state.todos.map((todo) => {
+        return todo.id === id ? { ...todo, completed: !todo.completed } : todo;
       }),
     })),
 }));
