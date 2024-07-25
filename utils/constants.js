@@ -6,3 +6,9 @@ export const BASE_STYLES = {
   LIGHT_NEUTRAL_GRAY: "#F4F4F4",
   LIGHT_NEUTRAL_PURPLE: "#8e74af",
 };
+
+export const SORT_TYPE = {
+  COMPLETED: "completed",
+  NOT_COMPLETED: "not_completed",
+  SHOW_ALL: "All",
+};

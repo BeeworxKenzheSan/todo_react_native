@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, SafeAreaView } from "react-native";
-import { BASE_STYLES } from "../../utils/constants";
+import { BASE_STYLES, SORT_TYPE } from "../../utils/constants";
 import { AddIcon } from "../../assets/appIcons/icon-collection";
 import Button from "../UI/Button";
 import AppModal from "../UI/Modal";
@@ -13,6 +13,23 @@ function Todo() {
   const [addTodoModal, setAddTodoModal] = useState(false);
   const { todos, addTodo, toggleCompleteTodo, updateTodo, deleteTodo } =
     useStore();
+  const [sortedTodos, setSotredTodos] = useState(todos);
+
+  const sortTodos = (type) => {
+    const sorteTodosByType = () => {
+      if (type === SORT_TYPE.COMPLETED) {
+        return todos.filter((todos) => todos.completed);
+      }
+      if (type === SORT_TYPE.NOT_COMPLETED) {
+        return todos.filter((todos) => !todos.completed);
+      }
+      if (type === SORT_TYPE.SHOW_ALL) {
+        return [...todos];
+      }
+      return [];
+    };
+    setSotredTodos(sorteTodosByType());
+  };
 
   const addModalHandler = () => {
     setAddTodoModal((prevState) => !prevState);
@@ -23,6 +40,11 @@ function Todo() {
     addTodo(todoWithId);
     addModalHandler();
   };
+
+  useEffect(() => {
+    setSotredTodos(todos);
+  }, [todos]);
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <AppModal isVisible={addTodoModal} onClose={addModalHandler}>
@@ -35,10 +57,11 @@ function Todo() {
           icon={<AddIcon />}
         />
         <TodoList
-          todos={todos}
+          todos={sortedTodos}
           toggleCompleteTodo={toggleCompleteTodo}
           updateTodo={updateTodo}
           deleteTodo={deleteTodo}
+          onSort={sortTodos}
         />
       </View>
     </SafeAreaView>
@@ -62,5 +85,6 @@ const styles = StyleSheet.create({
     bottom: 20,
     right: 20,
     alignSelf: "center",
+    zIndex: 1000,
   },
 });
